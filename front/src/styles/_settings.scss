@@ -1,0 +1,10 @@
+// Styles généraux appliqués sur toutes les pages
+*{
+    box-sizing: border-box; // Les boîtes avec bordure ne dépassent pas des limites de la boîte parent
+    list-style: none; // retire les puces des listes
+    margin: 0; // Contrôle la marge extérieure
+    padding: 0; // Contrôle la marge intérieure
+}
+:root {
+    font-size: 62.5%; // Définit la taille de fonte utilisée pour le texte (1rem = 10px)            
+}
