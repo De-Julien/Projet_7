@@ -1,3 +1,7 @@
+// importation Police
+@import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap');
+// variable qui contient la police
+$font-1: 'Lato', sans-serif;
 // Styles généraux appliqués sur toutes les pages
 *{
     box-sizing: border-box; // Les boîtes avec bordure ne dépassent pas des limites de la boîte parent
@@ -7,4 +11,8 @@
 }
 :root {
     font-size: 62.5%; // Définit la taille de fonte utilisée pour le texte (1rem = 10px)            
+}
+body{
+    font-family: $font-1; // défini la police en fonction de la variable
+    font-size: 2rem;
 }
