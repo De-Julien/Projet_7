@@ -25,7 +25,7 @@ exports.signup = (req, res, next) => {
 // fonction de la route POST (login)
 exports.login = (req, res, next) => {
     // regarde dans la base de données si l'utilisateur s'y trouve.
-    User.findOne({ where : { email: req.body.email } })
+    User.findOne({ where: { email: req.body.email } })
         .then(user => {
             // si l'utilisateur n'est pas dans la base de données
             if (user === null) {
@@ -43,7 +43,12 @@ exports.login = (req, res, next) => {
                             // envoie token à l'utilisateur
                             res.status(200).json({
                                 token: jwt.sign(
-                                    { id: user.id },
+                                    {
+                                        id: user.id,
+                                        nom: user.nom,
+                                        prenom: user.prenom,
+                                        email: user.email
+                                    },
                                     `${process.env.RANDOM_TOKEN_SECRET}`,
                                     { expiresIn: '12h' }
                                 )

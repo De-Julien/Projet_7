@@ -26,15 +26,16 @@ app.use((req, res, next) => {
     next();
   });
 
+app.get('/', (req, res) => res.send('Serveur en ligne. Tout est Ok'))  
 // route pour l'authentification
-app.use("/api", userRoutes);
-/*
-// route pour les sauces
+app.use("/api/auth", userRoutes);
+
+// route pour les publications
 app.use("/api/publication", publicationRoutes);
 
 // route pour les images
-app.use("/images", express.static(path.join(__dirname, "images")));
-*/
+//app.use("/images", express.static(path.join(__dirname, "images")));
+
 
 // exportation pour pouvoir y accéder depuis un autre fichier
 module.exports = app;
