@@ -9,14 +9,8 @@ module.exports = (req, res, next) => {
         // décode le token avec la clé de chiffrement
         const decodedToken = jwt.verify(token, process.env.RANDOM_TOKEN_SECRET);
         const userId = decodedToken.id;
-        const userNom = decodedToken.nom;
-        const userPrenom = decodedToken.prenom;
-        const userEmail = decodedToken.email;
         req.auth = {
-            id: userId,
-            nom: userNom,
-            prenom: userPrenom,
-            email: userEmail
+            userId: userId,
         };
         next();
     } catch (error) {

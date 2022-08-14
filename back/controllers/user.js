@@ -11,9 +11,14 @@ exports.signup = (req, res, next) => {
     bcrypt.hash(req.body.mot_de_passe, 10)
         // remplace le Mdp par le Mdp hash
         .then(hash => {
-            req.body.mot_de_passe = hash
+            const createUser = new User({
+                nom: req.body.nom,
+                prenom:req.body.prenom,
+                email: req.body.email,
+                mot_de_passe: hash
+            })
             // sauvegarde le nouvel utilisateur dans la base de données
-            User.create(req.body)
+            createUser.save()
                 .then(() => res.status(201).json({
                     message: 'Utilisateur créé !'
                 }))

@@ -10,19 +10,24 @@ const Publication = DB.define('Publication', {
         autoIncrement: true,
         allowNull: false
     },
-    user_id: {
+    
+    userId: {
         type: DataTypes.INTEGER,
         allowNull: false
     },
-    image: {
-        type: DataTypes.STRING(100),
+    
+    imageUrl: {
+        type: DataTypes.STRING,
         allowNull: false
     },
+    
     texte: {
         type: DataTypes.TEXT,
         allowNull: false
     },
 });
+
+//Publication.sync({force:true})
 
 // exportation pour pouvoir y accéder depuis un autre fichier
 module.exports = Publication;

@@ -1,6 +1,7 @@
 // importation des modules
 const express = require('express');
 const morgan = require('morgan');
+const path = require("path");
 
 // importation de la base de données
 const sequelize = require("./database/db")
@@ -34,7 +35,7 @@ app.use("/api/auth", userRoutes);
 app.use("/api/publication", publicationRoutes);
 
 // route pour les images
-//app.use("/images", express.static(path.join(__dirname, "images")));
+app.use("/images", express.static(path.join(__dirname, "images")));
 
 
 // exportation pour pouvoir y accéder depuis un autre fichier
