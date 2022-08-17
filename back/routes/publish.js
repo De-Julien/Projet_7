@@ -2,7 +2,7 @@
 const express = require('express');
 
 // importation du dossier controllers
-const publicationCtrl = require('../controllers/publication.js');
+const publishCtrl = require('../controllers/publish.js');
 const auth = require('../middleware/auth');
 const multer = require('../middleware/multer');
 
@@ -10,13 +10,15 @@ const multer = require('../middleware/multer');
 const router = express.Router();
 
 // les routes possibles à utiliser
-router.get("/", auth, publicationCtrl.getAllPublications);
+router.get("/", auth, publishCtrl.getAllPublish);
 
-router.post('/', auth, multer, publicationCtrl.postPublications);
+router.post('/', auth, multer, publishCtrl.postPublish);
+router.post('/:id/like', auth, publishCtrl.likePublish);
 
-router.put('/:id', auth, multer, publicationCtrl.updatePublication);
 
-router.delete('/:id', auth, publicationCtrl.deletePublication);
+router.put('/:id', auth, multer, publishCtrl.updatePublish);
+
+router.delete('/:id', auth, publishCtrl.deletePublish);
 
 // exportation pour pouvoir y accéder depuis un autre fichier
 module.exports = router;

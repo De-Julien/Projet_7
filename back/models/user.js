@@ -6,7 +6,7 @@ const DB = require('../database/db')
 const User = DB.define('User', {
   id: {
     type: DataTypes.INTEGER.UNSIGNED, // INTEGER correspond à un nombre entier, UNSIGNED correspond à un nombre positif
-    primaryKey: true, 
+    primaryKey: true,
     autoIncrement: true, // créer automatiquement un id et ajoute +1 pour chaque nouvelle création
     allowNull: false // le champ ne peut pas être null
   },
@@ -25,17 +25,18 @@ const User = DB.define('User', {
     validate: {
       isEmail: true // utilise un format d'email pour valider le champ
     }
-    
   },
   mot_de_passe: {
     type: DataTypes.STRING,
     allowNull: false
   },
+  isAdmin: {
+    type: DataTypes.BOOLEAN,
+    defaultValue: false
+  }
 }, {
   tableName: 'user', // utilise la table sélectionnée de la base de données
 });
-
-//User.sync({force:true})
 
 // exportation pour pouvoir y accéder depuis un autre fichier
 module.exports = User;

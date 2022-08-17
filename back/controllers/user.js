@@ -13,9 +13,9 @@ exports.signup = (req, res, next) => {
         .then(hash => {
             const createUser = new User({
                 nom: req.body.nom,
-                prenom:req.body.prenom,
+                prenom: req.body.prenom,
                 email: req.body.email,
-                mot_de_passe: hash
+                mot_de_passe: hash         
             })
             // sauvegarde le nouvel utilisateur dans la base de données
             createUser.save()
@@ -52,7 +52,7 @@ exports.login = (req, res, next) => {
                                         id: user.id,
                                         nom: user.nom,
                                         prenom: user.prenom,
-                                        email: user.email
+                                        isAdmin: user.isAdmin
                                     },
                                     `${process.env.RANDOM_TOKEN_SECRET}`,
                                     { expiresIn: '12h' }

@@ -8,7 +8,7 @@ const sequelize = require("./database/db")
 
 // importation des routes utilisateurs
 const userRoutes = require('./routes/user');
-const publicationRoutes = require('./routes/publication')
+const publishRoutes = require('./routes/publish')
 
 // créer une applicaltion express
 const app = express();
@@ -26,17 +26,15 @@ app.use((req, res, next) => {
     res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, PATCH, OPTIONS');
     next();
   });
-
-app.get('/', (req, res) => res.send('Serveur en ligne. Tout est Ok'))  
+ 
 // route pour l'authentification
 app.use("/api/auth", userRoutes);
 
-// route pour les publications
-app.use("/api/publication", publicationRoutes);
+// route pour les publish
+app.use("/api/publish", publishRoutes);
 
 // route pour les images
 app.use("/images", express.static(path.join(__dirname, "images")));
-
 
 // exportation pour pouvoir y accéder depuis un autre fichier
 module.exports = app;

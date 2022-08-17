@@ -21,5 +21,6 @@ const storage = multer.diskStorage({
         callback(null, name + '_' + Date.now() + '.' + extension);
     }
 });
+
 // exportation pour pouvoir y accéder depuis un autre fichier
 module.exports = multer({ storage }).single('image');

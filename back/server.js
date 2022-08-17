@@ -1,6 +1,6 @@
 // importation des modules
 const http = require('http');
-const dotenv = require('dotenv')
+const dotenv = require('dotenv');
 
 // importation de la route app
 const app = require('./app');
