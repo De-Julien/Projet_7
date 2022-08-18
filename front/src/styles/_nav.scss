@@ -1,0 +1,22 @@
+nav {
+    display: flex;
+    justify-content: center;
+    padding-top: 3rem;
+    cursor: pointer;
+
+    ul {
+        display: flex;
+
+        .link {
+            text-decoration: none;
+            margin-left: 1rem;
+            border-bottom: solid 2px;
+            padding-bottom: 3px;
+        }
+
+        .bar {
+            color: #FD2D01;
+            margin-left: 1rem;
+        }
+    }
+}

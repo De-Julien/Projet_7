@@ -1,22 +1,16 @@
 import React from 'react';
-
-function signup(){
-  console.log("je suis inscrit");
-}
-
-function login(){
-  console.log("je suis log");
-}
-
+import logo from "../assets/logo.png"
 const Header = () => {
-  return (
-    <>
-      <nav>
-        <p onClick={signup}>S'inscrire</p>
-        <p onClick={login}>Se Connecter</p>
-      </nav>
-    </>
-  );
+    return (
+        <>
+            <div className='image'>
+                <img src={logo} alt="" />
+            </div>
+            <div>
+                <h1>Bienvenue sur Groupomania</h1>
+            </div>
+        </>
+    );
 };
 
 export default Header;

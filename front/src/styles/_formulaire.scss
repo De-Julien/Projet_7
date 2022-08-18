@@ -1,0 +1,18 @@
+.conteneur {
+    display: flex;
+    justify-content: center;
+
+    &_champs {
+        &--champ {
+            margin: 5rem 0;
+            display: flex;
+            flex-direction: column;
+        }
+    }
+
+    input {
+        font-size: 1.5rem;
+        padding: 5px;
+        width: 40rem;
+    }
+}
