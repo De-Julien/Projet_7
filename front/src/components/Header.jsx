@@ -1,6 +1,6 @@
-import React from 'react';
 import logo from "../assets/logo.png"
-const Header = () => {
+
+export default function Header() {
     return (
         <>
             <div className='image'>
@@ -12,5 +12,3 @@ const Header = () => {
         </>
     );
 };
-
-export default Header;

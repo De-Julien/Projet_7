@@ -1,9 +1,9 @@
-import {Routes, Route} from "react-router-dom"
-import Home from "./pages/home/Home.jsx"
-import Signup from "./pages/signup/Signup.jsx"
-import Login from "./pages/login/Login.jsx"
+import { Routes, Route } from "react-router-dom"
+import Home from "./pages/Home.jsx"
+import Signup from "./pages/Signup.jsx"
+import Login from "./pages/Login.jsx"
 
-function App() {
+export default function App() {
     return (
         <div className="App">
             <Routes>
@@ -14,5 +14,3 @@ function App() {
         </div>
     );
 }
-
-export default App;

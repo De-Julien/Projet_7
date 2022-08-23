@@ -1,9 +1,9 @@
-.conteneur {
+.form {
     display: flex;
     justify-content: center;
 
-    &_champs {
-        &--champ {
+    &_container {
+        &--value {
             margin: 5rem 0;
             display: flex;
             flex-direction: column;
@@ -15,4 +15,10 @@
         padding: 5px;
         width: 40rem;
     }
+}
+
+#nomErreur, #prenomErreur, #emailErreur, #mdpErreur {
+    color: red;
+    font-size: 1.5rem;
+    display: none;
 }
