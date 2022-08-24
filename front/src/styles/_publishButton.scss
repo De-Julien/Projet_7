@@ -1,0 +1,15 @@
+.publish_container {
+    display: flex;
+    justify-content: center;
+    &--post{
+        background-color: rgb(88, 114, 226);
+        color: white;
+        padding: 1.5rem;
+        border-radius: 1rem;
+        width: 30rem;
+        font-size: 2rem;
+        cursor: pointer;
+        margin-top: 3rem;
+        margin-bottom: 8rem;
+    }
+}

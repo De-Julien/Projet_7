@@ -1,6 +1,8 @@
 // importations des modules
-import { useState, useEffect } from "react"
-
+import { Link } from "react-router-dom";
+import Header from "../components/Header";
+import NavPublish from "../components/NavPublish";
+/*
 
 const dataList = () => {
 
@@ -13,13 +15,21 @@ const dataList = () => {
             })
     })
 }
-
-
+*/
+// exportation de la fonction Publish
 export default function Publish() {
+    // state (état, données) //
+    // comportements //
+    // affichage (render) //
     return (
-        <header>
-            <Nav />
-            <Header />
-        </header>
+        <>
+            <header>
+                <NavPublish />
+                <Header />
+            </header>
+            <section className="publish_container">
+                <Link to="/publish/post" ><button className="publish_container--post">Ajouter votre publication</button></Link>
+            </section>
+        </>
     );
 };

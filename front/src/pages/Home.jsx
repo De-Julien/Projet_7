@@ -4,11 +4,11 @@ import Nav from '../components/Nav'
 
 // exportation de la fonction Home
 export default function Home() {
-  // affichage (render)
+  // affichage (render) //
   return (
     <header>
-        <Nav />
-        <Header />
+      <Nav />
+      <Header />
     </header>
   );
 }
