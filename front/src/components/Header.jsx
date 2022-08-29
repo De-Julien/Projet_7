@@ -1,6 +1,9 @@
+// importations des modules
 import logo from "../assets/logo.png"
 
+// exportation de la fonction Header
 export default function Header() {
+    // affichage (render) //
     return (
         <>
             <div className='image'>

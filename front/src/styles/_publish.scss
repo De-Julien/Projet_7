@@ -1,0 +1,63 @@
+.publish {
+    display: flex;
+    flex-direction: column-reverse;
+    align-items: center;
+
+    &_container {
+        display: flex;
+        flex-direction: column;
+        border: 0.4rem solid #FD2D01;
+        border-radius: 1rem;
+        margin: 1.2rem 0;
+        width: 80%;
+
+        &--user {
+            display: flex;
+            justify-content: center;
+            margin-right: 5rem;
+        }
+
+        &--contents {
+            display: flex;
+
+            img {
+                height: 30rem;
+                width: 60%;
+                margin-right: 0.5rem;
+            }
+            p {
+                width: 40%;
+                overflow-wrap: normal;
+            }
+        }
+        &_button {
+            display: flex;
+            justify-content: center;
+
+            &--update {
+
+            }
+            &--delete {
+                margin: 0 2rem;
+            }
+            &--like {
+
+            }
+        }
+        &_create {
+            display: flex;
+            justify-content: center;
+            &--post {
+                background-color: rgb(88, 114, 226);
+                color: white;
+                padding: 1.5rem;
+                border-radius: 1rem;
+                width: 30rem;
+                font-size: 2rem;
+                cursor: pointer;
+                margin-top: 3rem;
+                margin-bottom: 8rem;
+            }
+        }
+    }
+}

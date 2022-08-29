@@ -1,6 +1,9 @@
+// importations des modules
 import { Link } from "react-router-dom"
 
+// exportation de la fonction Nav
 export default function Nav() {
+  // affichage (render) //
   return (
     <nav>
       <ul>
