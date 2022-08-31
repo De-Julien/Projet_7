@@ -17,15 +17,21 @@ export default function SignupForm() {
     const [formErrors, setFormErrors] = useState({});
     // comportements //
     // fonction qui créer une copie du tableau, récupère les valeurs de name et value et sauvegarde dans le state
-    const handleChange = (e) => {
+    const handleChange = async (e) => {
         const formValuesCopy = { ...formValues };
         const { name, value } = e.target;
-        setFromValues({ ...formValuesCopy, [name]: value });
+        setFromValues({ ...formValuesCopy, [name]: value }, () => {
+            console.log('ok');
+        });
+        console.log(formValues);
     };
       // fonction qui envoie les données
     const handelSubmit = async (e) => {
         e.preventDefault();
+        console.log(formValues);
         setFormErrors(validate(formValues));
+        
+console.log(formErrors);
         if (Object.keys(formErrors).length === 0) {
         fetch(`http://localhost:3001/api/auth/signup`, {
             method: "POST",

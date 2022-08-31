@@ -11,6 +11,7 @@ const router = express.Router();
 
 // les routes possibles à utiliser
 router.get("/", auth, publishCtrl.getAllPublish);
+router.get("/like", auth, publishCtrl.getAllLikes);
 
 router.post('/', auth, multer, publishCtrl.postPublish);
 router.post('/:id/like', auth, publishCtrl.likePublish);

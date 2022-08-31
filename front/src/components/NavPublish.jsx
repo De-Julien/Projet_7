@@ -3,6 +3,10 @@ import { Link } from "react-router-dom"
 
 // exportation de la fonction NavPublish
 export default function NavPublish() {
+
+  const handleClick = () => {
+    sessionStorage.clear()
+  }
   // affichage (render) //
   return (
     <nav>
@@ -11,7 +15,7 @@ export default function NavPublish() {
           |
         </li>
         <li>
-          <Link className="link" to="/login">Se Déconnecter</Link>
+          <Link className="link" to="/login" onClick={handleClick}>Se Déconnecter</Link>
         </li>
         <li className='bar'>
           |

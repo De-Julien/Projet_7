@@ -12,18 +12,25 @@ exports.getAllPublish = (req, res, next) => {
     // récupère toutes les publications de la base de données
     Publish.findAll(
         {
-            include: [{ model: User, attributes: { exclude: ["createdAt", "updatedAt", "email", "mot_de_passe"] } }],
+            include: [{ model: User, attributes: { exclude: ["createdAt", "updatedAt", "email", "mot_de_passe"] } }],         
         })
         .then((allPublish) => res.status(200).json(allPublish))
         .catch(error => res.status(400).json({ error }))
 };
 
+exports.getAllLikes = (req, res, next) => {
+    // récupère toutes les publications de la base de données
+    Like.findAll(
+        {
+           attributes: { exclude: ["createdAt", "updatedAt"] } },         
+        )
+        .then((allLike) => res.status(200).json(allLike))
+        .catch(error => res.status(400).json({ error }))
+};
+
 // fonction de la route POST (postPublish)
 exports.postPublish = (req, res, next) => {
-    console.log(req.body)
-    console.log(req.files)
     if (req.file) {
-
         const imageUrl = `${req.protocol}://${req.get("host")}/images/${req.file.filename}`
         const createPublish = new Publish({
             ...req.body,

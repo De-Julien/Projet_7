@@ -34,6 +34,7 @@ export default function LoginForm() {
                     .then((data) => {
                         if (response.status === 200) {
                             sessionStorage.setItem('token', data.token)
+                            sessionStorage.setItem('userId', data.userId)
                             navigate("/publish");
                         } else {
                             alert(`L'identifiant ou le mot de passe est incorrecte !`)

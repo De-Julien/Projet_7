@@ -5,6 +5,7 @@ import Signup from "./pages/Signup.jsx"
 import Login from "./pages/Login.jsx"
 import Publish from "./pages/Publish";
 import PublishForm from "./pages/PublishForm";
+import PublishUpdate from "./pages/PublishUpdate.jsx";
 
 // exportation de la fonction App
 export default function App() {
@@ -14,8 +15,11 @@ export default function App() {
                 <Route path="/" element={<Home />} />
                 <Route path="/signup" element={<Signup />} />
                 <Route path="/login" element={<Login />} />
-                <Route path="/publish" element={<Publish />} />
-                <Route path="/publish/post" element={<PublishForm />} />
+                <Route path="/publish" >
+                    <Route index element={<Publish />} />
+                    <Route path="post" element={<PublishForm />} />
+                    <Route path=":id" element={<PublishUpdate />} />
+                </Route>
             </Routes>
         </div>
     );

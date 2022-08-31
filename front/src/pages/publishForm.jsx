@@ -1,10 +1,12 @@
 // importations des modules
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import Header from "../components/Header";
 import NavPublish from "../components/NavPublish";
 // exportation de la fonction PublishForm
 export default function PublishForm() {
     // state (état, données) //
+    const navigate = useNavigate();
     const [image, setImage] = useState('');
     const [text, setText] = useState('');
     // comportements //
@@ -19,7 +21,7 @@ export default function PublishForm() {
       setText(e.target.value);
     };
     // fonction qui récupère l'image et le texte et les sauvegarde dans le state
-    const handelSubmit = async (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault()
         const formData = new FormData();
         formData.set("texte", text);
@@ -32,6 +34,7 @@ export default function PublishForm() {
             },
             body: formData
         })
+        navigate("/publish");
     };
     // affichage (render) //
     return (
@@ -41,7 +44,7 @@ export default function PublishForm() {
                 <Header />
             </header>
             <section className='form'>
-                <form className="form_container" onSubmit={handelSubmit}>
+                <form className="form_container" onSubmit={handleSubmit}>
                     <div className='form_container--value'>
                         <label htmlFor="image">Image : </label>
                         <input type="file" name="image" id="image" onChange={handleChangeImage} />

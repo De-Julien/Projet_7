@@ -47,6 +47,7 @@ exports.login = (req, res, next) => {
                         } else {
                             // envoie token à l'utilisateur
                             res.status(200).json({
+                                userId:user.id,
                                 token: jwt.sign(
                                     {
                                         id: user.id,

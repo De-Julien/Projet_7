@@ -25,28 +25,53 @@
                 width: 60%;
                 margin-right: 0.5rem;
             }
+
             p {
                 width: 40%;
                 overflow-wrap: normal;
             }
         }
+
         &_button {
             display: flex;
             justify-content: center;
 
             &--update {
-
+                font-weight: bold;
+                cursor: pointer;
+                padding: 0.3rem 1rem;
+                background-color: cyan;
+                margin: 0.8rem 1rem;
+                border-radius: 0.8rem;
             }
+
             &--delete {
-                margin: 0 2rem;
+                font-weight: bold;
+                cursor: pointer;
+                padding: 0.3rem 1rem;
+                margin: 0.8rem 1rem;
+                border-radius: 0.8rem;
+                background-color: #FD2D01;
             }
-            &--like {
 
+            &--number {
+                font-size: 2rem;
+                margin: 0.8rem 1rem;
+            }
+
+            &--like {
+                font-size: 2rem;
+                cursor: pointer;
+                border: none;
+                background-color: white;
+                margin: 0.8rem 0;
             }
         }
+
         &_create {
             display: flex;
             justify-content: center;
+
             &--post {
                 background-color: rgb(88, 114, 226);
                 color: white;
