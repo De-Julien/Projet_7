@@ -1,6 +1,7 @@
 // importations des modules
 import { useNavigate } from 'react-router-dom';
 import { useState } from "react";
+import { useEffect } from 'react';
 
 // exportation de la fonction SignupForm
 export default function SignupForm() {
@@ -16,22 +17,41 @@ export default function SignupForm() {
     const [formValues, setFromValues] = useState(signupFrom);
     const [formErrors, setFormErrors] = useState({});
     // comportements //
+
     // fonction qui créer une copie du tableau, récupère les valeurs de name et value et sauvegarde dans le state
-    const handleChange = async (e) => {
+    const submitEmailHandler = (e) => {
+        setFromValues({ ...formValues, email: e.target.value });
+      };
+      const submitPasswordHandler = (e) => {
+        setFromValues({ ...formValues, mot_de_passe: e.target.value });
+      };
+      const submitFirstnameHandler = (e) => {
+        setFromValues({ ...formValues, nom: e.target.value });
+      };
+      const submitLastnameHandler = (e) => {
+        setFromValues({ ...formValues, prenom: e.target.value });
+      };
+    
+    
+    //const handleChange = async (e) => {
+
+/*
         const formValuesCopy = { ...formValues };
         const { name, value } = e.target;
         setFromValues({ ...formValuesCopy, [name]: value }, () => {
-            console.log('ok');
         });
         console.log(formValues);
-    };
+        */
+   // };
+useEffect(() => {
+    if(Object.keys(formValues).length > 0) {
+        setFormErrors(validate(formValues));
+    }
+},[formValues]);
+
       // fonction qui envoie les données
     const handelSubmit = async (e) => {
         e.preventDefault();
-        console.log(formValues);
-        setFormErrors(validate(formValues));
-        
-console.log(formErrors);
         if (Object.keys(formErrors).length === 0) {
         fetch(`http://localhost:3001/api/auth/signup`, {
             method: "POST",
@@ -43,7 +63,7 @@ console.log(formErrors);
             .then(response => {
                 if (response.status === 201) {
                     alert('Votre compte à bien été créé !')
-                    navigate('/login')
+                  //  navigate('/login')
                 } else {
                     alert(`L'adresse email entré est déjà utilisé !`)
                 }
@@ -86,22 +106,22 @@ console.log(formErrors);
         <form className="form_container" onSubmit={handelSubmit}>
             <div className='form_container--value'>
                 <label htmlFor="nom">Nom : </label>
-                <input type="text" name="nom" id="nom" required onChange={handleChange} value={formValues.nom} />
+                <input type="text" name="nom" id="nom" required onChange={submitFirstnameHandler} value={formValues.nom} />
                 <p id="msgError">{formErrors.nom}</p>
             </div>
             <div className='form_container--value'>
                 <label htmlFor="prenom">Prénom : </label>
-                <input type="text" name="prenom" id="prenom" required onChange={handleChange} value={formValues.prenom} />
+                <input type="text" name="prenom" id="prenom" required onChange={submitLastnameHandler} value={formValues.prenom} />
                 <p id="msgError">{formErrors.prenom}</p>
             </div>
             <div className='form_container--value'>
                 <label htmlFor="email">Email : </label>
-                <input type="email" name="email" id="email" required onChange={handleChange} value={formValues.email} />
+                <input type="email" name="email" id="email" required onChange={submitEmailHandler} value={formValues.email} />
                 <p id="msgError">{formErrors.email}</p>
             </div>
             <div className='form_container--value'>
                 <label htmlFor="mdp">Mot de passe : </label>
-                <input type="password" name="mot_de_passe" id="mot_de_passe" required onChange={handleChange} value={formValues.mot_de_passe} />
+                <input type="password" name="mot_de_passe" id="mot_de_passe" required onChange={submitPasswordHandler} value={formValues.mot_de_passe} />
                 <p id="msgError">{formErrors.mot_de_passe}</p>
             </div>
             <div className='form--submit'>

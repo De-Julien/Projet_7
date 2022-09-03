@@ -32,7 +32,8 @@ export default function LoginForm() {
             .then(response => {
                 response.json()
                     .then((data) => {
-                        if (response.status === 200) {
+                        if (response.status === 200) {   
+                            sessionStorage.setItem('isAdmin', data.isAdmin)                   
                             sessionStorage.setItem('token', data.token)
                             sessionStorage.setItem('userId', data.userId)
                             navigate("/publish");

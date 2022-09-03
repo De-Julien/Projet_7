@@ -65,6 +65,12 @@
                 border: none;
                 background-color: white;
                 margin: 0.8rem 0;
+                .fas {
+                    color: green;
+                }
+                .fa-solid {
+                    color: black ;
+                }
             }
         }
 
@@ -80,8 +86,8 @@
                 width: 30rem;
                 font-size: 2rem;
                 cursor: pointer;
-                margin-top: 3rem;
-                margin-bottom: 8rem;
+                margin-top: 5rem;
+                margin-bottom: 5rem;
             }
         }
     }

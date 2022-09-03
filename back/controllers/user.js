@@ -15,7 +15,7 @@ exports.signup = (req, res, next) => {
                 nom: req.body.nom,
                 prenom: req.body.prenom,
                 email: req.body.email,
-                mot_de_passe: hash         
+                mot_de_passe: hash
             })
             // sauvegarde le nouvel utilisateur dans la base de données
             createUser.save()
@@ -47,7 +47,8 @@ exports.login = (req, res, next) => {
                         } else {
                             // envoie token à l'utilisateur
                             res.status(200).json({
-                                userId:user.id,
+                                isAdmin: user.isAdmin,
+                                userId: user.id,
                                 token: jwt.sign(
                                     {
                                         id: user.id,
@@ -58,11 +59,11 @@ exports.login = (req, res, next) => {
                                     `${process.env.RANDOM_TOKEN_SECRET}`,
                                     { expiresIn: '12h' }
                                 )
-                            })
-                        }
-                    })
-                    .catch(error => res.status(500).json({ error }))
+                        })
             }
         })
         .catch(error => res.status(500).json({ error }))
+}
+        })
+        .catch (error => res.status(500).json({ error }))
 };

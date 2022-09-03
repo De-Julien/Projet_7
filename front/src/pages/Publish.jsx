@@ -10,9 +10,10 @@ export default function Publish() {
     const [publishData, setPublishData] = useState([]);
     const [likeData, setLikeData] = useState([]);
     const navigate = useNavigate();
-  
-    const fetchLikeData = async () => {
+    const userId = JSON.parse(sessionStorage.getItem('userId'));
+    const isAdmin = JSON.parse(sessionStorage.getItem('isAdmin'));
 
+    const fetchLikeData = async () => {
         const resultLike = await fetch(`http://localhost:3001/api/publish/like`, {
             method: "GET",
             headers: {
@@ -25,7 +26,6 @@ export default function Publish() {
         setLikeData(resultLike);
     };
     const fetchData = async () => {
-
         const resultPublish = await fetch(`http://localhost:3001/api/publish`, {
             method: "GET",
             headers: {
@@ -42,14 +42,27 @@ export default function Publish() {
         fetchData();
         fetchLikeData();
     }, [setPublishData, setLikeData]);
-
-    const Vert = (publishId) => {
-        const userId = JSON.parse(sessionStorage.getItem('userId'));
-        if (likeData.find(element => element.publishId === publishId && userId === element.userId && element.myLike === 1)){
-            return (<i className="fa fa-thumbs-up"></i>)
+        
+    function see(item) {
+        if (item.User.id === userId || isAdmin) {
+            return true
         }
+        return false
     };
 
+    function post(item) {
+        if (item.imageUrl) {
+            return true
+        }
+        return false
+    };
+    function colorLike(publishId) {
+        if (likeData.find(element => element.publishId === publishId && userId === element.userId && element.myLike === 1)) {
+            return true
+        } else {
+            return false
+        }
+    };
     const handleClickUpdate = (publishId) => {
         navigate(`/Publish/${publishId}`)
     };
@@ -66,7 +79,6 @@ export default function Publish() {
     const handleClickLike = async (publishId) => {
         const like = { "myLike": 1 }
         const noLike = { "myLike": 0 }
-        const userId = JSON.parse(sessionStorage.getItem('userId'));
         if (likeData.find(element => element.publishId === publishId && userId === element.userId && element.myLike === 1)) {
             await fetch(`http://localhost:3001/api/publish/${publishId}/like`, {
                 mode: "cors",
@@ -83,7 +95,6 @@ export default function Publish() {
                     fetchData();
                     fetchLikeData();
                 })
-
         } else if (likeData.find(element => element.publishId === publishId && userId === element.userId && element.myLike === 0)) {
             await fetch(`http://localhost:3001/api/publish/${publishId}/like`, {
                 mode: "cors",
@@ -119,8 +130,6 @@ export default function Publish() {
                 })
         };
     }
-    //likeStyle = { color: "green" };
-
     // affichage (render) //
     return (
         <>
@@ -129,6 +138,9 @@ export default function Publish() {
                 <Header />
             </header>
             <section>
+                <div className="publish_container_create">
+                    <Link to="/publish/post" ><button className="publish_container_create--post">Ajouter votre publication</button></Link>
+                </div>
                 <div className="publish">
                     {publishData.map(item => (
                         <div className="publish_container" key={item.id}>
@@ -139,31 +151,44 @@ export default function Publish() {
                                 </p>
                             </div>
                             <div className="publish_container--contents">
-                                <img src={item.imageUrl} alt="" />
-                                <p>{item.texte}</p>
+                                {post(item) ?
+                                    <>
+                                        <img src={item.imageUrl} alt="" />
+                                        <p>{item.texte}</p>
+                                    </>
+                                    :
+                                    <p>{item.texte}</p>
+                                }
                             </div>
                             <div className="publish_container_button">
-                                <button className="publish_container_button--update"
-                                    onClick={() => handleClickUpdate(item.id)}>
-                                    Modifier
-                                </button>
-                                <button className="publish_container_button--delete"
-                                    onClick={() => handleClickDelete(item.id)}>
-                                    Supprimer
-                                </button>
-                                <p className="publish_container_button--number">{item.like}</p>
-                                <button className="publish_container_button--like"
-                                    onClick={() => handleClickLike(item.id)}>
-                                        <Vert publishId={item.id}/>
-                                    <i className="fa-solid fa-thumbs-up"></i>
-                                </button>
-                            </div>
+                                {see(item) ?
+                                    <>
+                                        <button className="publish_container_button--update"
+                                            onClick={() => handleClickUpdate(item.id)}>
+                                            Modifier
+                                        </button>
+                                        <button className="publish_container_button--delete"
+                                            onClick={() => handleClickDelete(item.id)}>
+                                            Supprimer
+                                        </button>
+                                    </>
+                                        :
+                                        <>
+                                        </>
+                                }
+                                        <p className="publish_container_button--number">{item.like}</p>
+                                        <button className="publish_container_button--like"
+                                            onClick={() => handleClickLike(item.id)}>
+                                            {colorLike(item.id) ?
+                                                <i style={{ color: "green" }} className="fa-solid fa-thumbs-up"></i>
+                                                :
+                                                <i style={{ color: "black" }} className="fa-solid fa-thumbs-up"></i>
+                                            }
+                                        </button>
+                                    </div>
                         </div>
                     ))}
-                </div>
-                <div className="publish_container_create">
-                    <Link to="/publish/post" ><button className="publish_container_create--post">Ajouter votre publication</button></Link>
-                </div>
+                        </div>
             </section>
         </>
     );
