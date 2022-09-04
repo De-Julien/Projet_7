@@ -1,128 +1,92 @@
 // importations des modules
 import { useNavigate } from 'react-router-dom';
 import { useState } from "react";
-import { useEffect } from 'react';
+import { useFormik } from 'formik';
+import * as Yup from 'yup';
 
 // exportation de la fonction SignupForm
 export default function SignupForm() {
     // state (état, données) //
-    const navigate = useNavigate()
-    // model utilisé par formValues
-    const signupFrom = {
-        nom: "",
-        prenom: "",
-        email: "",
-        mot_de_passe: ""
-    };
-    const [formValues, setFromValues] = useState(signupFrom);
-    const [formErrors, setFormErrors] = useState({});
-    // comportements //
-
-    // fonction qui créer une copie du tableau, récupère les valeurs de name et value et sauvegarde dans le state
-    const submitEmailHandler = (e) => {
-        setFromValues({ ...formValues, email: e.target.value });
-      };
-      const submitPasswordHandler = (e) => {
-        setFromValues({ ...formValues, mot_de_passe: e.target.value });
-      };
-      const submitFirstnameHandler = (e) => {
-        setFromValues({ ...formValues, nom: e.target.value });
-      };
-      const submitLastnameHandler = (e) => {
-        setFromValues({ ...formValues, prenom: e.target.value });
-      };
-    
-    
-    //const handleChange = async (e) => {
-
-/*
-        const formValuesCopy = { ...formValues };
-        const { name, value } = e.target;
-        setFromValues({ ...formValuesCopy, [name]: value }, () => {
-        });
-        console.log(formValues);
-        */
-   // };
-useEffect(() => {
-    if(Object.keys(formValues).length > 0) {
-        setFormErrors(validate(formValues));
-    }
-},[formValues]);
-
-      // fonction qui envoie les données
-    const handelSubmit = async (e) => {
-        e.preventDefault();
-        if (Object.keys(formErrors).length === 0) {
-        fetch(`http://localhost:3001/api/auth/signup`, {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify(formValues)
-        })
-            .then(response => {
-                if (response.status === 201) {
-                    alert('Votre compte à bien été créé !')
-                  //  navigate('/login')
-                } else {
-                    alert(`L'adresse email entré est déjà utilisé !`)
-                }
+    const navigate = useNavigate();
+    const formik = useFormik({
+        initialValues: {
+            nom: "",
+            prenom: "",
+            email: "",
+            mot_de_passe: ""
+        },
+        validationSchema: Yup.object({
+            nom: Yup.string().matches(/^[a-zA-Z]{2,}$/, "Le format de votre nom est incorrect").required('Veuillez entrer un nom !'),
+            prenom: Yup.string().matches(/^[a-zA-Z]+-{0,1}[a-zA-Z]+$/, "Le format de votre prénom est incorrect").required('Veuillez entrer un prénom !'),
+            email: Yup.string().email("Le format de votre email est incorrect").required('Veuillez entrer un email !'),
+            mot_de_passe: Yup.string().min(4, "Veuillez entrer mot de passe d'aux moins 4 caractères !").required('Veuillez entrer un mot de passe !'),
+        }),
+        onSubmit: (values) => {
+            fetch(`http://localhost:3001/api/auth/signup`, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(values)
             })
-            .catch(err => {
-                alert(err)
-            })
+                .then(response => {
+                    if (response.status === 201) {
+                        alert('Votre compte à bien été créé !')
+                        navigate('/login')
+                    } else {
+                        alert(`L'adresse email entré est déjà utilisé !`)
+                    }
+                })
+                .catch(err => {
+                    alert(err)
+                })
         }
-    };
-    // fonction qui contrôle les données
-    const validate = (values) => {
-        const errors = {};
-        const regexNom = /^[a-zA-Z]{2,}$/;
-        const regexPrenom = /^[a-zA-Z]+-{0,1}[a-zA-Z]+$/;
-        const regexEmail = /^[a-zA-Z0-9.-_]+@[a-zA-Z0-9-]{2,}[.][a-z]{2,3}$/;
-        if (!values.nom) {
-            errors.nom = "Veuillez entrer un nom valide !"
-        } else if (!regexNom.test(values.nom)) {
-            errors.nom = "Le format de votre nom est incorrect !"
-        }
-        if (!values.prenom) {
-            errors.prenom = "Veuillez entrer un prénom valide !"
-        } else if (!regexPrenom.test(values.prenom)) {
-            errors.prenom = "Le format de votre prénom est incorrect !"
-        }
-        if (!values.email) {
-            errors.email = "Veuillez entrer un email valide !"
-        } else if (!regexEmail.test(values.email)) {
-            errors.email = "Le format de votre email est incorrect !"
-        }
-        if (!values.mot_de_passe) {
-            errors.mot_de_passe = "Veuillez entrer mot de passe !"
-        } else if (values.mot_de_passe.length < 4) {
-            errors.mot_de_passe = "Veuillez entrer mot de passe d'aux moins 4 caractères !"
-        }
-        return errors;
-    };
+    });
     // affichage (render) //
     return (
-        <form className="form_container" onSubmit={handelSubmit}>
+        <form className="form_container" onSubmit={formik.handleSubmit}>
             <div className='form_container--value'>
                 <label htmlFor="nom">Nom : </label>
-                <input type="text" name="nom" id="nom" required onChange={submitFirstnameHandler} value={formValues.nom} />
-                <p id="msgError">{formErrors.nom}</p>
+                <input 
+                type="text" 
+                name="nom" 
+                id="nom" 
+                required 
+                onChange={formik.handleChange}
+                onBlur={formik.handleBlur} 
+                value={formik.values.nom} />
+                {formik.touched.nom && formik.errors.nom ?
+                    <p className="msgError">{formik.errors.nom}</p>
+                    :
+                    null
+                }
             </div>
             <div className='form_container--value'>
                 <label htmlFor="prenom">Prénom : </label>
-                <input type="text" name="prenom" id="prenom" required onChange={submitLastnameHandler} value={formValues.prenom} />
-                <p id="msgError">{formErrors.prenom}</p>
+                <input type="text" name="prenom" id="prenom" required onChange={formik.handleChange} onBlur={formik.handleBlur}  value={formik.values.prenom} />
+                {formik.touched.prenom && formik.errors.prenom ? 
+                <p className="msgError">{formik.errors.prenom}</p>
+                :
+                null
+            }
             </div>
             <div className='form_container--value'>
                 <label htmlFor="email">Email : </label>
-                <input type="email" name="email" id="email" required onChange={submitEmailHandler} value={formValues.email} />
-                <p id="msgError">{formErrors.email}</p>
+                <input type="email" name="email" id="email" required onChange={formik.handleChange} onBlur={formik.handleBlur}  value={formik.values.email} />
+                {formik.touched.email && formik.errors.email ? 
+                <p className="msgError">{formik.errors.email}</p>
+                :
+                null
+            }
             </div>
             <div className='form_container--value'>
                 <label htmlFor="mdp">Mot de passe : </label>
-                <input type="password" name="mot_de_passe" id="mot_de_passe" required onChange={submitPasswordHandler} value={formValues.mot_de_passe} />
-                <p id="msgError">{formErrors.mot_de_passe}</p>
+                <input type="password" name="mot_de_passe" id="mot_de_passe" required onChange={formik.handleChange} onBlur={formik.handleBlur}  value={formik.values.mot_de_passe} />
+                {formik.touched.mot_de_passe && formik.errors.mot_de_passe ? 
+                <p className="msgError">{formik.errors.mot_de_passe}</p>
+                :
+                null
+            }
             </div>
             <div className='form--submit'>
                 <button className='inscription' type='submit'>S'inscrire</button>
@@ -130,5 +94,3 @@ useEffect(() => {
         </form>
     )
 }
-
-
