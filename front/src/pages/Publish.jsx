@@ -67,15 +67,19 @@ export default function Publish() {
         navigate(`/Publish/${publishId}`)
     };
     const handleClickDelete = async (publishId) => {
-        await fetch(`http://localhost:3001/api/publish/${publishId}`, {
-            mode: "cors",
-            method: "DELETE",
-            headers: {
-                "Authorization": `Bearer ${sessionStorage.getItem("token")}`
-            },
-        })
-        fetchData();
-    };
+        const confirm = window.confirm('Voulez vous supprimer cette publication?');
+        if(confirm) {
+            await fetch(`http://localhost:3001/api/publish/${publishId}`, {
+                mode: "cors",
+                method: "DELETE",
+                headers: {
+                    "Authorization": `Bearer ${sessionStorage.getItem("token")}`
+                },
+            })
+            fetchData();
+        };
+        }
+       
     const handleClickLike = async (publishId) => {
         const like = { "myLike": 1 }
         const noLike = { "myLike": 0 }
@@ -91,7 +95,6 @@ export default function Publish() {
             })
                 .then((response) => {
                     response.json()
-                    console.log('retire like');
                     fetchData();
                     fetchLikeData();
                 })
@@ -107,7 +110,6 @@ export default function Publish() {
             })
                 .then((response) => {
                     response.json()
-                    console.log('like');
                     fetchData();
                     fetchLikeData();
                 })
@@ -124,7 +126,6 @@ export default function Publish() {
             })
                 .then((response) => {
                     response.json()
-                    console.log('nouveau like');
                     fetchData();
                     fetchLikeData();
                 })
@@ -146,8 +147,7 @@ export default function Publish() {
                         <div className="publish_container" key={item.id}>
                             <div className="publish_container--user">
                                 <p>
-                                    Créé le {item.createdAt.split("T", 1)} à
-                                    {item.createdAt.slice(11, 16)} par {item.User.nom} {item.User.prenom}
+                                    Créé le {item.createdAt.split("T", 1)} à {item.createdAt.slice(11, 16)} par {item.User.nom} {item.User.prenom}
                                 </p>
                             </div>
                             <div className="publish_container--contents">

@@ -36,10 +36,10 @@ Publish.belongsTo(User,  { foreignKey: "userId" });
 //lie les likes aux publications
 User.belongsToMany(Publish, { foreignKey: "userId", through: Like });
 Publish.belongsToMany(User, { foreignKey: "publishId", through: Like });
-/*
-User.sync()
-Publish.sync()
-Like.sync()
-*/
+
+//User.sync({ force: true })
+//Publish.sync({ force: true })
+//Like.sync({ force: true })
+
 // exportation pour pouvoir y accéder depuis un autre fichier
 module.exports = Publish;
