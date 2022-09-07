@@ -12,7 +12,7 @@ exports.getAllPublish = (req, res, next) => {
     // récupère toutes les publications de la base de données
     Publish.findAll(
         {
-            include: [{ model: User, attributes: { exclude: ["createdAt", "updatedAt", "email", "mot_de_passe"] } }],         
+            include: [{ model: User, attributes: { exclude: ["createdAt", "updatedAt", "email", "mot_de_passe"] } }],
         })
         .then((allPublish) => res.status(200).json(allPublish))
         .catch(error => res.status(400).json({ error }))
@@ -22,8 +22,9 @@ exports.getAllLikes = (req, res, next) => {
     // récupère toutes les publications de la base de données
     Like.findAll(
         {
-           attributes: { exclude: ["createdAt", "updatedAt"] } },         
-        )
+            attributes: { exclude: ["createdAt", "updatedAt"] }
+        },
+    )
         .then((allLike) => res.status(200).json(allLike))
         .catch(error => res.status(400).json({ error }))
 };
@@ -69,6 +70,7 @@ exports.postPublish = (req, res, next) => {
 
 // fonction de la route PUT (updatePublish)
 exports.updatePublish = (req, res, next) => {
+    console.log(req.body);
     // trouve l'ID du produit dans la base de données
     Publish.findOne({ where: { id: req.params.id } })
         .then((onePublish) => {
@@ -76,21 +78,32 @@ exports.updatePublish = (req, res, next) => {
             if (onePublish.userId == req.auth.userId || req.auth.isAdmin == true) {
                 // si une image est envoyé
                 if (req.file) {
-                    // casse l'objet et change l'image
-                    const updateBodyPublish = ({
-                        ...req.body,
-                        imageUrl: `${req.protocol}://${req.get("host")}/images/${req.file.filename}`
-                    });
-                    // récupère l'image à modifier
-                    const filename = onePublish.imageUrl.split('/images/')[1];
-                    // efface l'image sélectionner au-dessus
-                    fs.unlink(`images/${filename}`, (error) => {
-                        if (error) throw error;
-                    });
-                    // met à jours la base de données
-                    onePublish.update({ ...updateBodyPublish, id: req.params.id })
-                        .then(() => res.status(200).json({ message: "La publication à été modifiée !!" }))
-                        .catch(error => res.status(404).json({ error }));
+                    if (!onePublish.imageUrl) {
+                         // casse l'objet et change l'image
+                         const updateBodyPublish = ({
+                            imageUrl: `${req.protocol}://${req.get("host")}/images/${req.file.filename}`
+                        });
+                         // met à jours la base de données
+                         onePublish.update({ ...updateBodyPublish, id: req.params.id })
+                         .then(() => res.status(200).json({ message: "La publication à été modifiée !!" }))
+                         .catch(error => res.status(404).json({ error }));
+                    } else {
+                        // casse l'objet et change l'image
+                        const updateBodyPublish = ({
+                            ...req.body,
+                            imageUrl: `${req.protocol}://${req.get("host")}/images/${req.file.filename}`
+                        });
+                        // récupère l'image à modifier
+                        const filename = onePublish.imageUrl.split('/images/')[1];
+                        // efface l'image sélectionner au-dessus
+                        fs.unlink(`images/${filename}`, (error) => {
+                            if (error) throw error;
+                        });
+                        // met à jours la base de données
+                        onePublish.update({ ...updateBodyPublish, id: req.params.id })
+                            .then(() => res.status(200).json({ message: "La publication à été modifiée !!" }))
+                            .catch(error => res.status(404).json({ error }));
+                    }
                 } else {
                     // met à jours la base de données
                     onePublish.update(req.body)
@@ -149,7 +162,7 @@ exports.likePublish = (req, res, next) => {
     // cherche dans la base de données la publication
     Publish.findOne({ where: { id: req.params.id } })
         .then((onePublish) => {
-           // cherche dans la base de données le like de la publication en fonction de l'utilisateur
+            // cherche dans la base de données le like de la publication en fonction de l'utilisateur
             Like.findOne({ where: { publishId: req.params.id, userId: req.auth.userId } })
                 .then((likeList) => {
                     const createLike = new Like({
@@ -169,7 +182,7 @@ exports.likePublish = (req, res, next) => {
                                 .catch((error) => res.status(400).json({ error }));
                         } else {
                             res.status(401).json({ message: "Le vote n'a pas encore été effectué" });
-                        }                   
+                        }
                     } // si l'utilisateur a deja like la publication
                     else {
                         if (likeList.myLike == 0 && req.body.myLike == 1) {

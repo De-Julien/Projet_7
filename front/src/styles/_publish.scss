@@ -23,7 +23,9 @@
             img {
                 height: 30rem;
                 width: 60%;
+                height: 100%;
                 margin-right: 0.5rem;
+                object-fit: cover;
             }
 
             p {
