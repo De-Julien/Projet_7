@@ -1,0 +1,84 @@
+// tablette
+@media screen and (max-width: 1024px) {
+    body {
+        font-size: 1.5rem;
+    }
+
+    .image {
+        height: 10rem;
+    }
+
+    .form {
+        input {
+            font-size: 1.5rem;
+            width: 35rem;
+        }
+    }
+
+    .form--submit {
+        button {
+            margin-top: 1rem;
+            width: 20rem;
+            font-size: 1.5rem;
+        }
+    }
+    .publish {
+        &_container {
+            &_create {
+                &--post {
+                    width: 25rem;
+                    font-size: 1.5rem;
+                }
+            }
+        }
+    }
+}
+
+// mobile
+@media screen and (max-width: 600px) {
+    h1 {
+        display: flex;
+        justify-content: center;
+        margin-top: 3rem;
+    }
+
+    body {
+        font-size: 1.2rem;
+    }
+
+    .image {
+        height: 6.8rem;
+        margin: 3rem 0;
+    }
+
+    .form--submit {
+        button {
+            margin-top: 1rem;
+            width: 20rem;
+            font-size: 1.5rem;
+        }
+    }
+
+    .form {
+        input {
+            font-size: 1.2rem;
+            width: 30rem;
+        }
+    }
+
+    .msgError {
+        font-size: 1.2rem;
+    }
+    .publish {
+        &_container {
+            &_create {
+                &--post {
+                    width: 20rem;
+                    font-size: 1.2rem;
+                    margin-top: 3rem;
+                    margin-bottom: 3rem;
+                }
+            }
+        }
+    }
+}

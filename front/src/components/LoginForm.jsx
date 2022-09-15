@@ -54,7 +54,7 @@ export default function LoginForm() {
                 <input type="email" name="email" id="email" required onChange={handleChange} value={formValues.email} />
             </div>
             <div className='form_container--value'>
-                <label htmlFor="mdp">Mot de passe : </label>
+                <label htmlFor="mot_de_passe">Mot de passe : </label>
                 <input type="password" name="mot_de_passe" id="mot_de_passe" required onChange={handleChange} value={formValues.mot_de_passe} />
             </div>
             <div className='form--submit'>

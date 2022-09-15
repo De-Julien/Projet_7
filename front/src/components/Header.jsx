@@ -7,7 +7,7 @@ export default function Header() {
     return (
         <>
             <div className='image'>
-                <img src={logo} alt="" />
+                <img src={logo} alt="logo du site" />
             </div>
             <div>
                 <h1>Bienvenue sur Groupomania</h1>

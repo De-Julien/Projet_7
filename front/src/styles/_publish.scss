@@ -81,8 +81,9 @@
             justify-content: center;
 
             &--post {
+                font-weight: bold;
                 background-color: rgb(88, 114, 226);
-                color: white;
+                color: black;
                 padding: 1.5rem;
                 border-radius: 1rem;
                 width: 30rem;

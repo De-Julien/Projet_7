@@ -153,7 +153,7 @@ export default function Publish() {
                             <div className="publish_container--contents">
                                 {post(item) ?
                                     <>
-                                        <img src={item.imageUrl} alt="" />
+                                        <img src={item.imageUrl} alt={item.imageUrl.slice(29)} />
                                         <p>{item.texte}</p>
                                     </>
                                     :

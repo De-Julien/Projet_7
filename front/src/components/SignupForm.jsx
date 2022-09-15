@@ -79,7 +79,7 @@ export default function SignupForm() {
             }
             </div>
             <div className='form_container--value'>
-                <label htmlFor="mdp">Mot de passe : </label>
+                <label htmlFor="mot_de_passe">Mot de passe : </label>
                 <input type="password" name="mot_de_passe" id="mot_de_passe" required onChange={formik.handleChange} onBlur={formik.handleBlur}  value={formik.values.mot_de_passe} />
                 {formik.touched.mot_de_passe && formik.errors.mot_de_passe ? 
                 <p className="msgError">{formik.errors.mot_de_passe}</p>

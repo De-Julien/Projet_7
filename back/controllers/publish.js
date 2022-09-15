@@ -70,7 +70,6 @@ exports.postPublish = (req, res, next) => {
 
 // fonction de la route PUT (updatePublish)
 exports.updatePublish = (req, res, next) => {
-    console.log(req.body);
     // trouve l'ID du produit dans la base de données
     Publish.findOne({ where: { id: req.params.id } })
         .then((onePublish) => {
