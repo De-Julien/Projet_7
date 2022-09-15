@@ -177,7 +177,7 @@ export default function Publish() {
                                         </>
                                 }
                                         <p className="publish_container_button--number">{item.like}</p>
-                                        <button className="publish_container_button--like"
+                                        <button title="j'aime" className="publish_container_button--like"
                                             onClick={() => handleClickLike(item.id)}>
                                             {colorLike(item.id) ?
                                                 <i style={{ color: "green" }} className="fa-solid fa-thumbs-up"></i>
