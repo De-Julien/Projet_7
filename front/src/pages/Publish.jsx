@@ -42,7 +42,7 @@ export default function Publish() {
         fetchData();
         fetchLikeData();
     }, [setPublishData, setLikeData]);
-        
+
     function see(item) {
         if (item.User.id === userId || isAdmin) {
             return true
@@ -68,7 +68,7 @@ export default function Publish() {
     };
     const handleClickDelete = async (publishId) => {
         const confirm = window.confirm('Voulez vous supprimer cette publication?');
-        if(confirm) {
+        if (confirm) {
             await fetch(`http://localhost:3001/api/publish/${publishId}`, {
                 mode: "cors",
                 method: "DELETE",
@@ -78,8 +78,8 @@ export default function Publish() {
             })
             fetchData();
         };
-        }
-       
+    }
+
     const handleClickLike = async (publishId) => {
         const like = { "myLike": 1 }
         const noLike = { "myLike": 0 }
@@ -172,23 +172,23 @@ export default function Publish() {
                                             Supprimer
                                         </button>
                                     </>
-                                        :
-                                        <>
-                                        </>
+                                    :
+                                    <>
+                                    </>
                                 }
-                                        <p className="publish_container_button--number">{item.like}</p>
-                                        <button title="j'aime" className="publish_container_button--like"
-                                            onClick={() => handleClickLike(item.id)}>
-                                            {colorLike(item.id) ?
-                                                <i style={{ color: "green" }} className="fa-solid fa-thumbs-up"></i>
-                                                :
-                                                <i style={{ color: "black" }} className="fa-solid fa-thumbs-up"></i>
-                                            }
-                                        </button>
-                                    </div>
+                                <p className="publish_container_button--number">{item.like}</p>
+                                <button title="j'aime" className="publish_container_button--like"
+                                    onClick={() => handleClickLike(item.id)}>
+                                    {colorLike(item.id) ?
+                                        <i style={{ color: "green" }} className="fa-solid fa-thumbs-up"></i>
+                                        :
+                                        <i style={{ color: "black" }} className="fa-solid fa-thumbs-up"></i>
+                                    }
+                                </button>
+                            </div>
                         </div>
                     ))}
-                        </div>
+                </div>
             </section>
         </>
     );

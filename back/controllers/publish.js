@@ -156,7 +156,7 @@ exports.deletePublish = (req, res, next) => {
         .catch(error => res.status(500).json({ error }))
 };
 
-// fonction de la route DELETE (likePublish)
+// fonction de la route POST (likePublish)
 exports.likePublish = (req, res, next) => {
     // cherche dans la base de données la publication
     Publish.findOne({ where: { id: req.params.id } })
